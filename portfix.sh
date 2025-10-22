@@ -2,7 +2,7 @@
 
 echo "Скрипт начал свою работу, пожалуйста до окончанию его работы не закрывайте терминал..."
 
-# Проверка, свободен ли порт 80
+# Проверка, свободен ли порт 8443
 if lsof -iTCP:81 -sTCP:LISTEN -t >/dev/null ; then
   echo "Порт 81 уже занят. Скрипт завершён."
   exit 1
@@ -12,8 +12,8 @@ fi
 if command -v ufw >/dev/null 2>&1; then
   UFW_STATUS=$(ufw status | grep -i "Status: active")
   if [[ -n "$UFW_STATUS" ]]; then
-    echo "UFW активен. Добавляем правило для порта 81..."
-    ufw allow 81/tcp >/dev/null
+    echo "UFW активен. Добавляем правило для порта 8443..."
+    ufw allow 80/tcp >/dev/null
     ufw allow 443/tcp >/dev/null
     ufw allow 8443/tcp >/dev/null
     echo "Перезапуск UFW..."
@@ -30,7 +30,7 @@ fi
   sleep 1
   echo 9         # Change panel port
   sleep 1
-  echo 81      # New port
+  echo 8443      # New port
   sleep 1
   echo y         # Confirm
   sleep 1
